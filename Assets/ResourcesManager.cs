@@ -29,7 +29,7 @@ public class ResourcesManager : NetworkBehaviour
         InvokeRepeating("DecaySupplyCount", 0, 10);
     }
 
-    private void UpdateText()
+    private void UpdateText(int oldInt, int newInt)
     {
         txtManPower.text = $"{manPower} / {maxManPower}";
         txtSupplyCount.text = $"{supplyCount} / {maxSupplyCount}";
