@@ -7,7 +7,7 @@ public class Player : NetworkBehaviour
 {
     private Camera cam;
 
-    Vector2 mousePos;
+    Vector3 mousePos;
 
     // Start is called before the first frame update
     void Start()
