@@ -11,7 +11,7 @@ public enum SpawnMode
 
 public class SpawnPoint
 {
-    Transform transform;
+    public Transform transform;
     public bool hasSpawn = false;
 
     public SpawnPoint(Transform transform)
@@ -40,15 +40,16 @@ public class ObjectiveSpawner : NetworkBehaviour
         switch (spawnMode)
         {
             case SpawnMode.SpawnPoint:
-                InvokeRepeating("SpawnAtSpawnPoint", 0, 2.0f);
-                break;
-
-            case SpawnMode.Random:
 
                 foreach (Transform t in spawnPointTransform)
                 {
                     spawnPoints.Add(new SpawnPoint(t));
                 }
+
+                InvokeRepeating("SpawnAtSpawnPoint", 0, 2.0f);
+                break;
+
+            case SpawnMode.Random:
 
                 InvokeRepeating("SpawnAtRandom", 0, 2.0f);
                 break;
@@ -60,9 +61,14 @@ public class ObjectiveSpawner : NetworkBehaviour
 
     void SpawnAtSpawnPoint()
     {
-        int rand = Random.Range(0, spawnPointTransform.Count);
-        Vector3 spawnPos = spawnPointTransform[rand].position;
-        Spawn(prefabToSpawn, spawnPos);
+        int rand = Random.Range(0, spawnPoints.Count);
+
+        if (!spawnPoints[rand].hasSpawn)
+        {
+            Vector3 spawnPos = spawnPoints[rand].transform.position;
+            spawnPoints[rand].hasSpawn = true;
+            Spawn(prefabToSpawn, spawnPos);
+        }
     }
 
     void SpawnAtRandom()
@@ -72,9 +78,6 @@ public class ObjectiveSpawner : NetworkBehaviour
 
     void SpawnInRadius(float radius, float avoidDistance)
     {
-        float randX = Random.Range(-radius, radius);
-        float randY = Random.Range(-radius, radius);
-
         Vector2 randomPoint = new Vector2(center.position.x, center.position.z) + Random.insideUnitCircle * radius * 0.5f;
 
         Vector3 spawnPos = new Vector3(randomPoint.x, center.position.y, randomPoint.y);
@@ -94,18 +97,6 @@ public class ObjectiveSpawner : NetworkBehaviour
         {
             Spawn(prefabToSpawn, spawnPos);
         }
-    }
-
-    Vector3 PointInARadius(Vector2 center, float radiusX, float radiusY)
-    {
-        Vector3 pt = Vector3.zero;
-
-        float x = center.x + (radiusX * Mathf.Cos(360));
-        float y = center.y + (radiusY * Mathf.Sin(360));
-
-        pt = new Vector3(x, 0, y);
-
-        return pt;
     }
 
     private void Spawn(GameObject go, Vector3 pos)

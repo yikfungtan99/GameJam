@@ -96,3 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84f8f259881b414393af47a21695358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clickLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  clickRadius: 0
+  manPowerCDDuration: 0
+  throwPrefab: {fileID: 2436782698454203049, guid: 20eebc886f1d2f145bae67d84dd34cf3, type: 3}
+  throwSpeed: 3
+  throwDuration: 0.5
