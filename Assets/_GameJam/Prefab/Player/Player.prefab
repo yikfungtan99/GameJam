@@ -102,7 +102,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   clickRadius: 0
-  manPowerCDDuration: 0
+  manPowerCDDuration: 2
   throwPrefab: {fileID: 2436782698454203049, guid: 20eebc886f1d2f145bae67d84dd34cf3, type: 3}
   throwSpeed: 3
   throwDuration: 0.5

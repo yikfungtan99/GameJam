@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Objective : NetworkBehaviour
 {
+    public SpawnPoint spawnPoint;
     [SerializeField] private float checkRadius;
 
     private void Update()
@@ -31,7 +32,7 @@ public class Objective : NetworkBehaviour
 
     public void Claim()
     {
-        Debug.Log("Claimed!");
+        spawnPoint.hasSpawn = false;
         NetworkServer.Destroy(gameObject);
     }
 }

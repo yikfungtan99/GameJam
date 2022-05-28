@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class Player : NetworkBehaviour
 {
@@ -13,7 +14,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private LayerMask clickLayer;
     [SerializeField] private float clickRadius;
 
-    [SerializeField] private float manPowerCDDuration;
+    [SerializeField] private float throwCdDuration;
 
     [SerializeField] private GameObject throwPrefab;
     [SerializeField] private float throwSpeed;
@@ -65,9 +66,13 @@ public class Player : NetworkBehaviour
 
     private void InternalClick(Vector3 mousePos)
     {
-        if(manPowerCDDuration <= 0)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            CmdClick(mousePos);
+            if (manPowerCDTime <= 0)
+            {
+                CmdClick(mousePos);
+                manPowerCDTime = throwCdDuration;
+            }
         }
     }
 
@@ -79,12 +84,5 @@ public class Player : NetworkBehaviour
         GameObject go = Instantiate(throwPrefab, boat.transform.position, Quaternion.identity);
         NetworkServer.Spawn(go);
         go.transform.DOJump(targetVector, throwSpeed, 1, throwDuration);
-    }
-
-    
-    [ClientRpc]
-    private void RpcClick(Vector3 vector)
-    {
-        Debug.Log($"RPC: {vector}");
     }
 }

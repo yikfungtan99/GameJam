@@ -1,22 +1,23 @@
 using Mirror;
+using PathCreation.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Boat : NetworkBehaviour
 {
-    Vector3 dir;
+    [SerializeField] private PathFollower pathFollower;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float speedIncrement = 1;
+    [SerializeField] private float maxSpeed;
+
+    private void Start()
     {
-        Debug.Log("Boat Start");
-        dir = new Vector2(0, 1);
+        InvokeRepeating("DecayManPower", 0, 10);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetMoveSpeed(float spd)
     {
-        //transform.position += dir * Time.deltaTime;
+        pathFollower.speed = spd;
     }
 }

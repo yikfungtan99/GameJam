@@ -66,8 +66,16 @@ public class ObjectiveSpawner : NetworkBehaviour
         if (!spawnPoints[rand].hasSpawn)
         {
             Vector3 spawnPos = spawnPoints[rand].transform.position;
+
             spawnPoints[rand].hasSpawn = true;
-            Spawn(prefabToSpawn, spawnPos);
+            GameObject go = Spawn(prefabToSpawn, spawnPos);
+
+            Objective obj = go.GetComponent<Objective>();
+
+            if(obj != null)
+            {
+                obj.spawnPoint = spawnPoints[rand];
+            }
         }
     }
 
@@ -99,10 +107,12 @@ public class ObjectiveSpawner : NetworkBehaviour
         }
     }
 
-    private void Spawn(GameObject go, Vector3 pos)
+    private GameObject Spawn(GameObject go, Vector3 pos)
     {
         GameObject goInstance = Instantiate(go, pos, Quaternion.identity);
         NetworkServer.Spawn(goInstance);
         spawnedTransform.Add(goInstance.transform);
+
+        return goInstance;
     }
 }
