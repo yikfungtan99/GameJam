@@ -24,6 +24,8 @@ public class Player : NetworkBehaviour
 
     private Boat boat;
 
+    private PlayerActionManager playerAction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,7 @@ public class Player : NetworkBehaviour
         manPowerCDTime = 0;
 
         boat = GameObject.FindGameObjectWithTag("Boat").GetComponent<Boat>();
+        playerAction = PlayerActionManager.Instance;
     }
 
     // Update is called once per frame
@@ -68,10 +71,10 @@ public class Player : NetworkBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (manPowerCDTime <= 0)
+            if (playerAction.throwCooldownTime <= 0 && ResourcesManager.Instance.supplyCount > 0)
             {
                 CmdClick(mousePos);
-                manPowerCDTime = throwCdDuration;
+                playerAction.ThrowCooldown();
             }
         }
     }
@@ -79,13 +82,16 @@ public class Player : NetworkBehaviour
     [Command]
     private void CmdClick(Vector3 vector)
     {
+        Debug.Log("CMDThrow");
         ThrowSupplies(vector);
     }
 
     private void ThrowSupplies(Vector3 vector)
     {
         ResourcesManager resource = ResourcesManager.Instance;
-        if (resource.manPower <= 0 || resource.supplyCount <= 0) return;
+        if (resource.supplyCount <= 0) return;
+
+        resource.supplyCount -= 1;
 
         Vector3 targetVector = new Vector3(vector.x, 0, vector.z);
 
@@ -93,6 +99,5 @@ public class Player : NetworkBehaviour
         NetworkServer.Spawn(go);
         go.transform.DOJump(targetVector, throwSpeed, 1, throwDuration);
 
-        resource.supplyCount -= 1;
     }
 }
