@@ -11,12 +11,15 @@ public class ResourcesManager : NetworkBehaviour
 
     [SerializeField] private TextMeshProUGUI txtManPower;
     [SerializeField] private TextMeshProUGUI txtSupplyCount;
+    [SerializeField] private TextMeshProUGUI txtSupplyDistrubuted;
 
     [SyncVar(hook = nameof(UpdateManPowerText))] public int manPower;
     [SerializeField] private int maxManPower;
 
     [SyncVar(hook = nameof(UpdateSuppliesText))] public int supplyCount;
     [SerializeField] private int maxSupplyCount;
+
+    [HideInInspector][SyncVar(hook = nameof(UpdateSupplyDistributed))] public int supplyDistributed;
 
     [SerializeField] private NetworkManager net;
     [SerializeField] private TextMeshProUGUI txtPlayer;
@@ -53,6 +56,11 @@ public class ResourcesManager : NetworkBehaviour
     private void UpdateSuppliesText(int oldInt, int newInt)
     {
         txtSupplyCount.text = $"{newInt} / {maxSupplyCount}";
+    }
+
+    private void UpdateSupplyDistributed(int oldInt, int newInt)
+    {
+        txtSupplyDistrubuted.text = $"{newInt}";
     }
 
     public void IncreaseSupplyCount()

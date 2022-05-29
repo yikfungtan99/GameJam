@@ -33,6 +33,7 @@ public class Objective : NetworkBehaviour
     public void Claim()
     {
         spawnPoint.hasSpawn = false;
+        ResourcesManager.Instance.supplyDistributed += 1;
         NetworkServer.Destroy(gameObject);
     }
 }
