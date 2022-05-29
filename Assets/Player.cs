@@ -69,6 +69,7 @@ public class Player : NetworkBehaviour
 
     private void InternalClick(Vector3 mousePos)
     {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             if (playerAction.throwCooldownTime <= 0 && ResourcesManager.Instance.supplyCount > 0)
@@ -77,12 +78,38 @@ public class Player : NetworkBehaviour
                 PlayerActionManager.Instance.ThrowCooldown();
             }
         }
+#endif
+#if UNITY_ANDROID
+        
+        if (!TouchOnUI())
+        {
+            if (playerAction.throwCooldownTime <= 0 && ResourcesManager.Instance.supplyCount > 0)
+            {
+                CmdClick(mousePos);
+                PlayerActionManager.Instance.ThrowCooldown();
+            }
+        }
+#endif
+    }
+
+    private bool TouchOnUI()
+    {
+        bool onUI = false;
+        foreach (Touch touch in UnityEngine.Input.touches)
+        {
+            int id = touch.fingerId;
+            if (EventSystem.current.IsPointerOverGameObject(id))
+            {
+                onUI = true;
+            }
+        }
+
+        return onUI;
     }
 
     [Command]
     private void CmdClick(Vector3 vector)
     {
-        Debug.Log("CMDThrow");
         ThrowSupplies(vector);
     }
 
