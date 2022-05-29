@@ -57,12 +57,25 @@ public class Player : NetworkBehaviour
         if (UnityEngine.Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(UnityEngine.Input.mousePosition);
+            //Ray ray = cam.ViewportPointToRay(UnityEngine.Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, clickLayer))
+            RaycastHit[] hits = Physics.RaycastAll(ray);
+
+            if(hits.Length > 0)
             {
-                mousePos = hit.point;
+                mousePos = hits[0].point;
             }
-            
+
+            //if (Physics.Raycast(ray, out RaycastHit hit, clickLayer))
+            //{
+            //    if (hit.collider.gameObject != null)
+            //    {
+            //        Debug.Log(hit.collider.gameObject);
+            //    }
+
+            //    mousePos = hit.point;
+            //}
+
             InternalClick(mousePos);
         }
     }
