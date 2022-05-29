@@ -47,7 +47,6 @@ public class ResourcesManager : NetworkBehaviour
 
     private void UpdateManPowerText(int oldInt, int newInt)
     {
-        Debug.Log(newInt);
         txtManPower.text = $"{newInt} / {maxManPower}";
     }
 
@@ -102,7 +101,6 @@ public class ResourcesManager : NetworkBehaviour
 
     private void InternalIncreaseManPower()
     {
-        Debug.Log("HI");
         manPower += 1;
         Mathf.Clamp(manPower, 0, maxManPower);
     }

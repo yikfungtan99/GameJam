@@ -74,7 +74,7 @@ public class Player : NetworkBehaviour
             if (playerAction.throwCooldownTime <= 0 && ResourcesManager.Instance.supplyCount > 0)
             {
                 CmdClick(mousePos);
-                playerAction.ThrowCooldown();
+                PlayerActionManager.Instance.ThrowCooldown();
             }
         }
     }
