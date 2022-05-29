@@ -17,6 +17,13 @@ public class Boat : NetworkBehaviour
         SpeedControl();
     }
 
+    private void LateUpdate()
+    {
+        Vector3 newPos = transform.position;
+        newPos.y = -3.8f;
+        transform.position = newPos;
+    }
+
     private void SpeedControl()
     {
         if (ResourcesManager.Instance.manPower <= 0)

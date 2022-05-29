@@ -30,15 +30,17 @@ public class PlayerActionManager : MonoBehaviour
     {
         UpdateThrowCooldown();
 
+        throwIconCircle.fillAmount = 1- (throwCooldownTime / throwCooldownDuration);
+
         if (throwCooldownTime <= 0)
         {
-            throwIcon.color = Color.white;
-            throwIconCircle.color = Color.white;
+            //throwIcon.color = Color.white;
+            throwIconCircle.color = Color.green;
         }
         else
         {
-            throwIcon.color = cooldownColor;
-            throwIconCircle.color = cooldownColor;
+            //throwIcon.color = cooldownColor;
+            throwIconCircle.color = Color.black;
         }
     }
 

@@ -46,7 +46,7 @@ public class ObjectiveSpawner : NetworkBehaviour
                     spawnPoints.Add(new SpawnPoint(t));
                 }
 
-                InvokeRepeating("SpawnAtSpawnPoint", 0, 2.0f);
+                InvokeRepeating("SpawnAtSpawnPoint", 0, 0.7f);
                 break;
 
             case SpawnMode.Random:
