@@ -71,7 +71,7 @@ public class ResourcesManager : NetworkBehaviour
     private void InternalIncreaseSupplyCount()
     {
         supplyCount += 1;
-        Mathf.Clamp(supplyCount, 0, maxSupplyCount);
+        supplyCount = Mathf.Clamp(supplyCount, 0, maxSupplyCount);
     }
 
     [Command(requiresAuthority = false)]
@@ -110,6 +110,6 @@ public class ResourcesManager : NetworkBehaviour
     private void InternalIncreaseManPower()
     {
         manPower += 1;
-        Mathf.Clamp(manPower, 0, maxManPower);
+        manPower = Mathf.Clamp(manPower, 0, maxManPower);
     }
 }
