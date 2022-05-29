@@ -12,27 +12,48 @@ public class ResourcesManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI txtManPower;
     [SerializeField] private TextMeshProUGUI txtSupplyCount;
 
-    [SyncVar(hook = nameof(UpdateText))] public int manPower;
+    [SyncVar(hook = nameof(UpdateManPowerText))] public int manPower;
     [SerializeField] private int maxManPower;
 
-    [SyncVar(hook = nameof(UpdateText))] public int supplyCount;
+    [SyncVar(hook = nameof(UpdateSuppliesText))] public int supplyCount;
     [SerializeField] private int maxSupplyCount;
+
+    [SerializeField] private NetworkManager net;
+    [SerializeField] private TextMeshProUGUI txtPlayer;
 
     private void Awake()
     {
         instance = this;
     }
 
+    [Server]
     private void Start()
     {
-        InvokeRepeating("DecayManPower", 0, 10);
-        InvokeRepeating("DecaySupplyCount", 0, 10);
+        InvokeRepeating("DecayManPower", 0, 3);
     }
 
-    private void UpdateText(int oldInt, int newInt)
+    private void Update()
     {
-        txtManPower.text = $"{manPower} / {maxManPower}";
-        txtSupplyCount.text = $"{supplyCount} / {maxSupplyCount}";
+        if(net.numPlayers > 0)
+        {
+            txtPlayer.transform.parent.gameObject.SetActive(true);
+            txtPlayer.text = net.numPlayers.ToString();
+        }
+        else
+        {
+            txtPlayer.transform.parent.gameObject.SetActive(false);
+        }
+    }
+
+    private void UpdateManPowerText(int oldInt, int newInt)
+    {
+        Debug.Log(newInt);
+        txtManPower.text = $"{newInt} / {maxManPower}";
+    }
+
+    private void UpdateSuppliesText(int oldInt, int newInt)
+    {
+        txtSupplyCount.text = $"{newInt} / {maxSupplyCount}";
     }
 
     public void IncreaseSupplyCount()
@@ -42,11 +63,11 @@ public class ResourcesManager : NetworkBehaviour
 
     private void InternalIncreaseSupplyCount()
     {
-        manPower += 1;
-        Mathf.Clamp(manPower, 0, maxManPower);
+        supplyCount += 1;
+        Mathf.Clamp(supplyCount, 0, maxSupplyCount);
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdIncreaseSupplyCount()
     {
         InternalIncreaseSupplyCount();
@@ -73,7 +94,7 @@ public class ResourcesManager : NetworkBehaviour
         CmdIncreaseManPower();
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdIncreaseManPower()
     {
         InternalIncreaseManPower();
@@ -81,6 +102,7 @@ public class ResourcesManager : NetworkBehaviour
 
     private void InternalIncreaseManPower()
     {
+        Debug.Log("HI");
         manPower += 1;
         Mathf.Clamp(manPower, 0, maxManPower);
     }

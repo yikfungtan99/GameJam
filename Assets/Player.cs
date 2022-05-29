@@ -79,10 +79,20 @@ public class Player : NetworkBehaviour
     [Command]
     private void CmdClick(Vector3 vector)
     {
+        ThrowSupplies(vector);
+    }
+
+    private void ThrowSupplies(Vector3 vector)
+    {
+        ResourcesManager resource = ResourcesManager.Instance;
+        if (resource.manPower <= 0 || resource.supplyCount <= 0) return;
+
         Vector3 targetVector = new Vector3(vector.x, 0, vector.z);
-        
+
         GameObject go = Instantiate(throwPrefab, boat.transform.position, Quaternion.identity);
         NetworkServer.Spawn(go);
         go.transform.DOJump(targetVector, throwSpeed, 1, throwDuration);
+
+        resource.supplyCount -= 1;
     }
 }

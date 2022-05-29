@@ -8,16 +8,31 @@ public class Boat : NetworkBehaviour
 {
     [SerializeField] private PathFollower pathFollower;
 
-    [SerializeField] private float speedIncrement = 1;
-    [SerializeField] private float maxSpeed;
+    [SerializeField] private float speed;
 
-    private void Start()
+    private float curSpeed = 0;
+
+    private void Update()
     {
-        InvokeRepeating("DecayManPower", 0, 10);
+        SpeedControl();
     }
 
-    public void SetMoveSpeed(float spd)
+    private void SpeedControl()
     {
-        pathFollower.speed = spd;
+        if (ResourcesManager.Instance.manPower <= 0)
+        {
+            if(curSpeed > 0)
+            {
+                curSpeed = Mathf.Lerp(curSpeed, 0, Time.deltaTime);
+            }
+            
+        }
+        else
+        {
+            curSpeed = Mathf.Lerp(curSpeed, speed, Time.deltaTime);
+        }
+
+
+        pathFollower.speed = curSpeed;
     }
 }
