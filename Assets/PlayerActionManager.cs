@@ -12,7 +12,9 @@ public class PlayerActionManager : MonoBehaviour
     [HideInInspector] public float throwCooldownTime;
 
     [SerializeField] private Image throwIcon;
-    [SerializeField] private GameObject throwIconCircle;
+    [SerializeField] private Image throwIconCircle;
+
+    [SerializeField] private Color cooldownColor;
 
     private void Awake()
     {
@@ -28,15 +30,15 @@ public class PlayerActionManager : MonoBehaviour
     {
         UpdateThrowCooldown();
 
-        throwIcon.color = new Color(1, 1, 1, 1.0f - (throwCooldownTime/throwCooldownDuration));
-
         if (throwCooldownTime <= 0)
         {
-            throwIconCircle.gameObject.SetActive(true);
+            throwIcon.color = Color.white;
+            throwIconCircle.color = Color.white;
         }
         else
         {
-            throwIconCircle.gameObject.SetActive(false);
+            throwIcon.color = cooldownColor;
+            throwIconCircle.color = cooldownColor;
         }
     }
 

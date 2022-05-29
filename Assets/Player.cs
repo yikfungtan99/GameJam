@@ -69,6 +69,8 @@ public class Player : NetworkBehaviour
 
     private void InternalClick(Vector3 mousePos)
     {
+        if (!hasAuthority) return;
+
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
         if (!EventSystem.current.IsPointerOverGameObject())
         {

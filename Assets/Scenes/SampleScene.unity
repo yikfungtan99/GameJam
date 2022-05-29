@@ -1876,7 +1876,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044399468}
-  m_LocalRotation: {x: 0.41607174, y: -0.000000015646316, z: 0.000000007159091, w: 0.9093318}
+  m_LocalRotation: {x: 0.41607174, y: 0.000000015646304, z: -0.0000000071590867, w: 0.9093318}
   m_LocalPosition: {x: 0, y: 11.56, z: -5.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1993,7 +1993,8 @@ MonoBehaviour:
   throwCooldownDuration: 3
   throwCooldownTime: 0
   throwIcon: {fileID: 420303369}
-  throwIconCircle: {fileID: 754528178}
+  throwIconCircle: {fileID: 754528180}
+  cooldownColor: {r: 1, g: 1, b: 1, a: 0.16470589}
 --- !u!1 &1113162325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,7 +2248,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419307154}
-  m_LocalRotation: {x: 0.41607174, y: -0.000000015646316, z: 0.000000007159091, w: 0.9093318}
+  m_LocalRotation: {x: 0.41607174, y: 0.000000015646304, z: -0.0000000071590867, w: 0.9093318}
   m_LocalPosition: {x: 0, y: 11.56, z: -5.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
