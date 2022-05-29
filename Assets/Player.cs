@@ -135,7 +135,7 @@ public class Player : NetworkBehaviour
 
         resource.supplyCount -= 1;
 
-        Vector3 targetVector = new Vector3(vector.x, 0, vector.z);
+        Vector3 targetVector = new Vector3(vector.x, -4, vector.z);
 
         GameObject go = Instantiate(throwPrefab, boat.transform.position, Quaternion.identity);
         NetworkServer.Spawn(go);
