@@ -8,8 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: StylizedWater_Mobile
-  m_Shader: {fileID: 4800000, guid: 4bcc0b68579a5c740ad31644411ffb54, type: 3}
-  m_ShaderKeywords: _LIGHTING_ON _USEINTERSECTIONFOAM_ON _WORLDSPACETILIBG_ON
+  m_Shader: {fileID: 4800000, guid: 644d4419f6d30214892dd65158332ba7, type: 3}
+  m_ShaderKeywords: _ENABLEDEPTHTEXTURE_ON _LIGHTING_ON _NORMAL_MAP_ON _USEINTERSECTIONFOAM_ON
+    _WORLDSPACETILIBG_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -63,6 +64,7 @@ Material:
     - _ENABLE_SHADOWS: 0
     - _ENABLE_VC: 0
     - _EdgeFade: 0.2448298
+    - _EnableDepthTexture: 1
     - _FoamDistortion: 0.45
     - _FoamOpacity: 0.1
     - _FoamSize: 0
@@ -82,7 +84,7 @@ Material:
     - _RT_REFRACTION: 0
     - _ReflectionFresnel: 2
     - _ReflectionRefraction: 0.006
-    - _ReflectionStrength: 1
+    - _ReflectionStrength: 0
     - _RefractionAmount: 0.057
     - _RimDistance: 0.899
     - _RimDistortion: 0.139
